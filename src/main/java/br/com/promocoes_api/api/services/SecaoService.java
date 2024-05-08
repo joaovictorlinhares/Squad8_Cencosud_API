@@ -8,6 +8,7 @@ import br.com.promocoes_api.api.dto.secao.SecaoDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoRequestDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoResponseDTO;
 import br.com.promocoes_api.api.exceptions.secaoException.SecaoNotFoundException;
+import br.com.promocoes_api.api.models.Produto;
 import br.com.promocoes_api.api.models.Secao;
 import br.com.promocoes_api.api.repositorys.SecaoRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,10 @@ public class SecaoService {
 
         secaoRepository.save(existeSecao);
         return new SecaoDTO(existeSecao.getId(), existeSecao.getNome());
+    }
+
+    public void deleteSecao(Long idSecao) {
+        Secao existingProduto = secaoRepository.findById(idSecao).orElseThrow(() -> new SecaoNotFoundException("O Id " + idSecao + " nao existe."));
+        secaoRepository.delete(existingProduto);
     }
 }
