@@ -6,6 +6,7 @@ import br.com.promocoes_api.api.dto.produto.ProdutoDetailsDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoListResponseDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoRequestDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoResponseDTO;
+import br.com.promocoes_api.api.exceptions.produtoException.ProdutoNotFoundException;
 import br.com.promocoes_api.api.exceptions.secaoException.SecaoNotFoundException;
 import br.com.promocoes_api.api.models.Produto;
 import br.com.promocoes_api.api.models.Secao;
@@ -19,6 +20,11 @@ public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
     private final SecaoRepository secaoRepository;
+
+    public ProdutoResponseDTO getProduto(Long idProduto) {
+        Produto produto = this.produtoRepository.findById(idProduto).orElseThrow(() -> new ProdutoNotFoundException("O Id " + idProduto + " nao existe."));
+        return new ProdutoResponseDTO(produto.getSecao(), produto);
+    }
 
     public List<Produto> getAllProdutosSecao(Long idSecao) {
         List<Produto> listaProdutos = this.produtoRepository.findBySecaoId(idSecao);

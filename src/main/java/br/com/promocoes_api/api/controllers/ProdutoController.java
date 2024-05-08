@@ -2,6 +2,7 @@ package br.com.promocoes_api.api.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +20,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProdutoController {
 
-    private final SecaoService secaoService;
     private final ProdutoService produtoService;
+
+    @GetMapping("/{idProduto}")
+    public ResponseEntity<ProdutoResponseDTO> getSecao(@PathVariable Long idProduto) {
+        ProdutoResponseDTO produtoResponse = this.produtoService.getProduto(idProduto);
+        return ResponseEntity.status(HttpStatus.OK).body(produtoResponse);
+    }
 
     @PostMapping("/Adicionar/Secao/{idSecao}")
     public ResponseEntity<ProdutoResponseDTO> Adicionar(@PathVariable Long idSecao, @RequestBody ProdutoRequestDTO produto) {
