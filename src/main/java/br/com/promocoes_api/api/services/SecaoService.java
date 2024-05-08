@@ -34,9 +34,18 @@ public class SecaoService {
 
     public SecaoDTO criarSecao(SecaoRequestDTO secaoRequestDTO) {
         Secao novaSecao = new Secao();
-        novaSecao.setNome(secaoRequestDTO.nomeSecao());
+        novaSecao.setNome(secaoRequestDTO.nome());
 
         this.secaoRepository.save(novaSecao);
         return new SecaoDTO(novaSecao.getId(), novaSecao.getNome());
+    }
+
+    public SecaoDTO atualizarSecao(Long idSecao, SecaoRequestDTO secaoRequestDTO) {
+        Secao existeSecao = this.secaoRepository.findById(idSecao).orElseThrow(() -> new SecaoNotFoundException("O Id " + idSecao + " nao existe."));
+
+        existeSecao.setNome(secaoRequestDTO.nome());
+
+        secaoRepository.save(existeSecao);
+        return new SecaoDTO(existeSecao.getId(), existeSecao.getNome());
     }
 }

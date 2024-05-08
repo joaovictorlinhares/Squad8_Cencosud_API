@@ -16,6 +16,7 @@ import br.com.promocoes_api.api.services.ProdutoService;
 import br.com.promocoes_api.api.services.SecaoService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -45,7 +46,14 @@ public class SecaoController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(secaoResponse);
     }
-    
+
+    @PutMapping("/{idSecao}/Atualizar")
+    public ResponseEntity<SecaoDTO> atualizarSecao(@PathVariable Long idSecao, @RequestBody SecaoRequestDTO secaoRequestBody) {
+        SecaoDTO secaoResponse = this.secaoService.atualizarSecao(idSecao, secaoRequestBody);
+
+        return ResponseEntity.status(HttpStatus.OK).body(secaoResponse);
+    }
+
     @GetMapping("/{idSecao}/Produtos")
     public ResponseEntity<ProdutoListResponseDTO> getProdutosSecao(@PathVariable Long idSecao) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.getProdutosSecao(idSecao));
