@@ -1,5 +1,7 @@
 package br.com.promocoes_api.api.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,12 @@ public class SecaoController {
     @GetMapping("/{idSecao}")
     public ResponseEntity<SecaoResponseDTO> getSecao(@PathVariable Long idSecao) {
         SecaoResponseDTO secaoResponse = this.secaoService.getSecao(idSecao);
+        return ResponseEntity.status(HttpStatus.OK).body(secaoResponse);
+    }
+
+    @GetMapping("/Listar")
+    public ResponseEntity<List<SecaoDTO>> getListarSecoes() {
+        List<SecaoDTO> secaoResponse = this.secaoService.getSecoes();
         return ResponseEntity.status(HttpStatus.OK).body(secaoResponse);
     }
 

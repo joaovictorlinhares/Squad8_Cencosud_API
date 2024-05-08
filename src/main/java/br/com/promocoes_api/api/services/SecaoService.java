@@ -1,6 +1,9 @@
 package br.com.promocoes_api.api.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import br.com.promocoes_api.api.dto.secao.SecaoDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoRequestDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoResponseDTO;
@@ -18,6 +21,15 @@ public class SecaoService {
     public SecaoResponseDTO getSecao(Long idSecao) {
         Secao secao = this.secaoRepository.findById(idSecao).orElseThrow(() -> new SecaoNotFoundException("O Id " + idSecao + " nao existe."));
         return new SecaoResponseDTO(secao);
+    }
+
+    public List<SecaoDTO> getSecoes() {
+        List<Secao> secoes = this.secaoRepository.findAll();
+
+        List<SecaoDTO> listaSecoesDTO = secoes.stream().map(secao -> {            
+            return new SecaoDTO(secao.getId(), secao.getNome());
+        }).toList();
+        return listaSecoesDTO;
     }
 
     public SecaoDTO criarSecao(SecaoRequestDTO secaoRequestDTO) {
