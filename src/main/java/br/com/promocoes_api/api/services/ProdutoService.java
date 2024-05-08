@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import br.com.promocoes_api.api.dto.produto.ProdutoDetailsDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoListResponseDTO;
+import br.com.promocoes_api.api.dto.produto.ProdutoRequestDTO;
+import br.com.promocoes_api.api.dto.produto.ProdutoResponseDTO;
 import br.com.promocoes_api.api.exceptions.secaoException.SecaoNotFoundException;
 import br.com.promocoes_api.api.models.Produto;
 import br.com.promocoes_api.api.models.Secao;
@@ -33,5 +35,21 @@ public class ProdutoService {
         
         return new ProdutoListResponseDTO(secao, listaProdutosDetalhada);
     }
+
+    public ProdutoResponseDTO adicionarProduto(Long idSecao, ProdutoRequestDTO produtoRequest) {
+        Secao secao = this.secaoRepository.findById(idSecao).orElseThrow(() -> new SecaoNotFoundException("A secao com o Id " + idSecao + " nao existe."));
+
+        Produto novoProduto = new Produto();
+        novoProduto.setNome(produtoRequest.nome());
+        novoProduto.setDescricao(produtoRequest.descricao());
+        novoProduto.setPreco(produtoRequest.preco());
+        novoProduto.setDataValidade(produtoRequest.dataValidade());
+        novoProduto.setMarca(produtoRequest.marca());
+        novoProduto.setCategoria(produtoRequest.categoria());
+        novoProduto.setSecao(secao);
+
+        this.produtoRepository.save(novoProduto);
+        return new ProdutoResponseDTO(secao, novoProduto);
+    } 
 
 }

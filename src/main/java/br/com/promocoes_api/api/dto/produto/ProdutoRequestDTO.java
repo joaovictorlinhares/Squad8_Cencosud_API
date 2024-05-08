@@ -9,7 +9,6 @@ public record ProdutoRequestDTO(
     String descricao, 
     BigDecimal preco, 
     LocalDate dataValidade, 
-    LocalDate dataUltimaAtualizacaoPreco, 
     String marca, 
     String categoria
 ) { }
