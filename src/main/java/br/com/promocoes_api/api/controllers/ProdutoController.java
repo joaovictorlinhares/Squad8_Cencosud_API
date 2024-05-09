@@ -2,9 +2,11 @@ package br.com.promocoes_api.api.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +36,15 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoResponse);
     }
 
+    @PutMapping("/{idProduto}/Atualizar")
+    public ResponseEntity<ProdutoResponseDTO> atualizarSecao(@PathVariable Long idProduto, @RequestBody ProdutoRequestDTO produto) {
+        ProdutoResponseDTO produtoResponse = this.produtoService.atualizarProduto(idProduto, produto);
+        return ResponseEntity.status(HttpStatus.OK).body(produtoResponse);
+    }
+
+    @DeleteMapping("/{idProduto}/Deletar")
+    public ResponseEntity<Void> deletarSecao(@PathVariable Long idProduto) {
+        this.produtoService.deleteProduto(idProduto);
+        return ResponseEntity.noContent().build();
+    }
 }

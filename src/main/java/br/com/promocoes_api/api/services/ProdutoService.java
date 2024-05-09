@@ -6,6 +6,8 @@ import br.com.promocoes_api.api.dto.produto.ProdutoDetailsDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoListResponseDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoRequestDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoResponseDTO;
+import br.com.promocoes_api.api.dto.secao.SecaoDTO;
+import br.com.promocoes_api.api.dto.secao.SecaoRequestDTO;
 import br.com.promocoes_api.api.exceptions.produtoException.ProdutoNotFoundException;
 import br.com.promocoes_api.api.exceptions.secaoException.SecaoNotFoundException;
 import br.com.promocoes_api.api.models.Produto;
@@ -58,4 +60,22 @@ public class ProdutoService {
         return new ProdutoResponseDTO(secao, novoProduto);
     } 
 
+    public ProdutoResponseDTO atualizarProduto(Long idProduto, ProdutoRequestDTO produtoRequestDTO) {
+        Produto existeProduto = this.produtoRepository.findById(idProduto).orElseThrow(() -> new ProdutoNotFoundException("O Id " + idProduto + " nao existe."));
+
+        existeProduto.setNome(produtoRequestDTO.nome());
+        existeProduto.setDescricao(produtoRequestDTO.descricao());
+        existeProduto.setPreco(produtoRequestDTO.preco());
+        existeProduto.setDataValidade(produtoRequestDTO.dataValidade());
+        existeProduto.setMarca(produtoRequestDTO.marca());
+        existeProduto.setCategoria(produtoRequestDTO.categoria());
+
+        produtoRepository.save(existeProduto);
+        return new ProdutoResponseDTO(existeProduto.getSecao(), existeProduto);
+    }
+
+    public void deleteProduto(Long idProduto) {
+        Produto existeProduto = produtoRepository.findById(idProduto).orElseThrow(() -> new ProdutoNotFoundException("O Id " + idProduto + " nao existe."));
+        produtoRepository.delete(existeProduto);
+    }
 }
