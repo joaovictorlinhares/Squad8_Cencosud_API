@@ -51,7 +51,7 @@ public class SecaoService {
     }
 
     public void deleteSecao(Long idSecao) {
-        Secao existingProduto = secaoRepository.findById(idSecao).orElseThrow(() -> new SecaoNotFoundException("O Id " + idSecao + " nao existe."));
-        secaoRepository.delete(existingProduto);
+        Secao existeSecao = secaoRepository.findById(idSecao).orElseThrow(() -> new SecaoNotFoundException("O Id " + idSecao + " nao existe."));
+        secaoRepository.delete(existeSecao);
     }
 }
