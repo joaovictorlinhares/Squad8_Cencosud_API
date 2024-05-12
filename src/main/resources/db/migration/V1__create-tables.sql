@@ -21,5 +21,5 @@ CREATE TABLE promocoes (
   desconto DECIMAL(5,2) NOT NULL,
   data_inicio_promo DATE NOT NULL,
   data_fim_promo DATE NOT NULL,
-  id_produto_fk INT NOT NULL REFERENCES produtos(id)
+  id_produto_fk INT REFERENCES produtos(id)
 );
