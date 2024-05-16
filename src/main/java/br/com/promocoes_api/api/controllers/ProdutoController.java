@@ -37,13 +37,13 @@ public class ProdutoController {
     }
 
     @PutMapping("/{idProduto}/Atualizar")
-    public ResponseEntity<ProdutoResponseDTO> atualizarSecao(@PathVariable Long idProduto, @RequestBody ProdutoRequestDTO produto) {
+    public ResponseEntity<ProdutoResponseDTO> atualizarProduto(@PathVariable Long idProduto, @RequestBody ProdutoRequestDTO produto) {
         ProdutoResponseDTO produtoResponse = this.produtoService.atualizarProduto(idProduto, produto);
         return ResponseEntity.status(HttpStatus.OK).body(produtoResponse);
     }
 
     @DeleteMapping("/{idProduto}/Deletar")
-    public ResponseEntity<Void> deletarSecao(@PathVariable Long idProduto) {
+    public ResponseEntity<Void> deletarProduto(@PathVariable Long idProduto) {
         this.produtoService.deleteProduto(idProduto);
         return ResponseEntity.noContent().build();
     }
