@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.promocoes_api.api.dto.produto.ProdutoPromocaoResponseDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoRequestDTO;
 import br.com.promocoes_api.api.dto.produto.ProdutoResponseDTO;
 import br.com.promocoes_api.api.services.ProdutoService;
 import br.com.promocoes_api.api.services.SecaoService;
+
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -46,5 +48,11 @@ public class ProdutoController {
     public ResponseEntity<Void> deletarProduto(@PathVariable Long idProduto) {
         this.produtoService.deleteProduto(idProduto);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{idProduto}/Promocao/{idPromocao}")
+    public ResponseEntity<ProdutoPromocaoResponseDTO> adicionarPromocaoProduto(@PathVariable Long idProduto, @PathVariable Long idPromocao) {
+        ProdutoPromocaoResponseDTO produtoResponse = this.produtoService.adicionarPromocaoProduto(idProduto, idPromocao);
+        return ResponseEntity.status(HttpStatus.OK).body(produtoResponse);
     }
 }
