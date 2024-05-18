@@ -13,6 +13,7 @@ import br.com.promocoes_api.api.dto.produto.ProdutoListResponseDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoRequestDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoResponseDTO;
+import br.com.promocoes_api.api.dto.secao.SecoesListResponseDTO;
 import br.com.promocoes_api.api.services.ProdutoService;
 import br.com.promocoes_api.api.services.SecaoService;
 import lombok.AllArgsConstructor;
@@ -36,8 +37,8 @@ public class SecaoController {
     }
 
     @GetMapping("/Listar")
-    public ResponseEntity<List<SecaoDTO>> getListarSecoes() {
-        List<SecaoDTO> secaoResponse = this.secaoService.getSecoes();
+    public ResponseEntity<SecoesListResponseDTO> getListarSecoes() {
+        SecoesListResponseDTO secaoResponse = this.secaoService.getSecoes();
         return ResponseEntity.status(HttpStatus.OK).body(secaoResponse);
     }
 

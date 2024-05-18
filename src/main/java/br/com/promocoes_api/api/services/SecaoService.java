@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.promocoes_api.api.dto.secao.SecaoDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoRequestDTO;
 import br.com.promocoes_api.api.dto.secao.SecaoResponseDTO;
+import br.com.promocoes_api.api.dto.secao.SecoesListResponseDTO;
 import br.com.promocoes_api.api.exceptions.secaoException.SecaoNotFoundException;
 import br.com.promocoes_api.api.models.Produto;
 import br.com.promocoes_api.api.models.Secao;
@@ -24,13 +25,13 @@ public class SecaoService {
         return new SecaoResponseDTO(secao);
     }
 
-    public List<SecaoDTO> getSecoes() {
+    public SecoesListResponseDTO getSecoes() {
         List<Secao> secoes = this.secaoRepository.findAll();
 
         List<SecaoDTO> listaSecoesDTO = secoes.stream().map(secao -> {            
             return new SecaoDTO(secao.getId(), secao.getNome());
         }).toList();
-        return listaSecoesDTO;
+        return new SecoesListResponseDTO(listaSecoesDTO);
     }
 
     public SecaoDTO criarSecao(SecaoRequestDTO secaoRequestDTO) {
