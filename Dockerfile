@@ -1,7 +1,8 @@
 FROM ubuntu:22.04 AS build
 
 RUN apt update
-RUN apt install -y openjdk-21-jdk maven
+RUN apt-get install openjdk-21-jdk -y
+RUN apt-get install maven -y
 
 WORKDIR /app
 
