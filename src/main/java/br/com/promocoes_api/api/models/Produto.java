@@ -1,7 +1,7 @@
 package br.com.promocoes_api.api.models;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public class Produto {
     private String descricao;
 
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
-    private BigDecimal preco;
+    private int preco;
 
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
@@ -51,5 +52,9 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "id_secao", nullable = false)
     private Secao secao;
+
+    @OneToOne
+    @JoinColumn(name = "id_promocao")
+    private Promocao promocao;
 
 }

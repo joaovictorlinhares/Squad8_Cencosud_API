@@ -1,6 +1,5 @@
 package br.com.promocoes_api.api.models;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,16 +30,12 @@ public class Promocao {
   private String titulo;
 
   @Column(name = "desconto", nullable = false, precision = 5, scale = 2)
-  private BigDecimal desconto;
+  private int desconto;
 
   @Column(name = "data_inicio_promo", nullable = false)
   private LocalDate dataInicioPromo;
 
   @Column(name = "data_fim_promo", nullable = false)
   private LocalDate dataFimPromo;
-
-  @ManyToOne
-  @JoinColumn(name = "id_produto_fk", nullable = false)
-  private Produto produto;
 
 }
